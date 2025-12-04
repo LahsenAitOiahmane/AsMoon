@@ -1,0 +1,238 @@
+#:import PostItem libs.uix.components.hori_bub.PostItem
+<LabBox>   
+    width:root.width
+    md_bg_color:[1,0,0,0]
+    size_hint_y:None
+    height:llb.texture_size[1]
+    MDLabel:
+        id:llb
+        text: ' Comments'
+        font_name: 'assets/fonts/Lexend-Medium.ttf'
+        font_size:'18sp'
+        color:[0,0,0,.3]
+        adaptive_size:True, False
+        size_hint_y:None
+        pos_hint: {'center_x':0.4,'center_y':0.7}
+
+<PostScreen>
+    RelativeLayout:
+        id:post_screen
+        orientation:'vertical'
+        
+        width: root.width
+        height:root.height 
+        x:0
+        y:0
+        opacity: 1.0
+        ElevBox:
+            id:topbar
+            elevation:2
+            size_hint: None, None
+            y:root.height - self.height
+            x:0
+            width:root.width
+            height:dott.height
+            md_bg_color:[1,1,1,1]
+            orientation: 'horizontal'
+
+            MDBoxLayout:
+                size:dott.size
+                md_bg_color:[0,1,1,0]
+                orientation: 'horizontal'
+
+                MDIconButton:
+                    id:dott
+                    icon:'arrow-left'
+                    
+                    pos_hint: {'center_x':1,'center_y':0.5}
+                    theme_icon_color: "Custom"
+                    icon_color:[0,0,0,.5]
+                    rgba: 0,0,0,0
+                    line_color: 0,0,0, 0
+                    icon_size: '24dp'
+                    on_press: root.to_prv_screen()
+            MDBoxLayout:
+                width:root.width-2*magg.width
+                md_bg_color:[1,0,0,0]
+                size_hint_x:None
+                orientation: 'vertical'
+                pos_hint: {'center_x': 0.5,'center_y': .7}
+                MDLabel:
+                    id:chatl
+                    text: root.fname
+                    font_name: 'assets/fonts/Lexend-Regular.ttf'
+                    font_size:'16sp'
+                    color:[0,0,0,.8]
+                    size_hint_x:None
+                    adaptive_size:True,True
+                    shorten:False
+                    shorten_from:'right'
+                    pos_hint: {'center_x':0.5,'center_y':0.5}
+            MDBoxLayout:
+                size:magg.size
+                md_bg_color:[1,0,1,0] 
+                orientation: 'horizontal'
+                MDIconButton:
+                    id:magg
+                    icon:'magnify'
+                    size_hint_y:None
+                    pos_hint: {'center_x':0.4,'center_y':0.5}
+                    theme_icon_color: "Custom"
+                    icon_color:[0,0,0,.5]
+                    rgba: 0,0,0,0
+                    line_color: 0,0,0, 0
+                    iconsize: "24dp"
+                    # on_release:root.to_search_screen()
+                
+                       
+            
+        
+        MDBoxLayout:
+            size_hint: None, None
+            y:0
+            x:0
+            width:root.width
+            height:root.height - topbar.height
+            md_bg_color:[0,1,0,0]
+            ScrollView:
+                id:sv
+                scroll_y:1.0
+                # do_scroll_y:False
+                # on_scroll_move:root.mv()
+                # on_scroll_start:root.mv()
+                # on_scroll_stop:searchbx.height=dp(40)
+                smooth_scroll_end:10
+                MDList:
+                    id:lstt
+                    BoxLayout:
+                        id:pbox
+                        size_hint: None,None
+                        width:root.width
+                        height:self.minimum_size[1]
+                        # height:root.height - topbar.height
+                        md_bg_color:[0,1,0,0]
+                        orientation: 'vertical'
+                        spacing: '5dp'
+                        PostItem:
+                            id:post
+                            idd:root.id
+                            fname:root.fname
+                            date:root.date
+                            likes:root.likes
+                            liked:root.liked
+                            coments:root.coments
+                            profile_image:root.profile_image
+                            image:root.image
+                            txxt:root.txxt
+                            txt:root.txt
+                            # managr:root.managr
+
+                    MDBoxLayout:
+                        size_hint: None,None
+                        width:root.width
+                        height:dp(10)
+                        md_bg_color:[0,1,0,0]
+
+                    LabBox:
+                        id:labbox
+
+                    MDBoxLayout:
+                   
+                        size_hint: None,None
+                        width:root.width
+                        height:dp(10)
+                        # height:root.height - topbar.height
+                        md_bg_color:[0,1,0,0]
+                    BoxLayout:
+                        id:cbox
+                        height:self.minimum_size[1]
+                        size_hint: None,None
+                        width:root.width
+                        # height:root.height - topbar.height
+                        md_bg_color:[0,1,0,0]
+                        orientation: 'vertical'
+                        spacing: '10dp'
+                    MDBoxLayout:
+                        size_hint: None,None
+                        width:root.width
+                        height:comment_input.height
+                        # height:root.height - topbar.height
+                        md_bg_color:[0,1,0,0]
+                        spacing: '5dp'
+
+    MDBoxLayout:
+    
+        md_bg_color: [0,0,0,.1] if input.focus == True else [0,0,0,0]
+        size_hint: None, None
+        height: root.height
+        width: root.width
+        
+        # spacing: "2dp"
+        # padding: 0, "24dp", 0, "24dp"
+        y:0
+        x:0
+    MDBoxLayout:
+        id:llin
+        md_bg_color: [0,0,0,.6]
+        size_hint: None, None
+        height: dp(1)
+        width: root.width
+        
+        # spacing: "2dp"
+        # padding: 0, "24dp", 0, "24dp"
+        y:input.height
+        x:0
+    MDBoxLayout:
+        id:comment_input
+        md_bg_color: [1,1,1,1]
+        size_hint: None, None
+        height: input.height
+        width: root.width
+        
+        # spacing: "2dp"
+        # padding: 0, "24dp", 0, "24dp"
+        y:0
+        x:0
+        orientation: 'horizontal'
+        TextInput:
+            id: input
+            on_double_tap:True
+            text: ''  
+            # font_name: 'assets/fonts/Lexend-Regular.ttf'
+            font_size:'14sp'
+            hint_text: 'Write Your Own Comment...'
+            hint_text_color: 0,0,0,.5
+            cursor_color:[0,0,0,.5]
+            cursor_width:'2dp'
+            text_color:[0,0,0,.7]
+            background_color:[1,1,1,0]
+            bold:True
+            font_color:[0,0,0,.8]
+            pos_hint: {'center_x': 0.2,'center_y': 0.4}
+            size_hint:None, None
+            height:'40dp'
+            width:root.width - post_comment_button_box.width*1.1
+            # on_focus:root.anim0()
+            
+            canvas.after:
+                Color:
+                    rgba:[1,1,1,1]
+        MDBoxLayout:
+            id:post_comment_button_box
+            pos_hint: {'center_y': 0.5}
+            adaptive_size:True, True
+            size_hint_y:None
+            spacing: "30dp"
+            MDIconButton:
+                id: post_comment_button
+                icon: 'send-outline'
+                pos_hint: {"center_x": 1}
+                rgba: 1, 1, 1, 1
+                md_bg_color: [1,1,1,1]
+                line_color: 1,1,1,.5
+                theme_text_color: "Custom"
+                text_color: 0,0,0,.5
+                font_size: "10sp"
+                bold: True
+                adaptive_size: True
+                # on_release: root.send(field.text)  

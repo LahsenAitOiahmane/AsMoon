@@ -1,0 +1,48 @@
+<ChatsTab>
+
+    RecycleView:
+        data: root.users_data
+        viewclass: "ChatListItem"
+
+        RecycleBoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: self.minimum_size[1]
+            default_size_hint: 1, None
+            default_size: None, None
+<StatusTab>
+    
+    TwoLineAvatarListItem:
+        text: "My status"
+        secondary_text: ""
+        divider: "Inset"
+        pos_hint: {'top': 1}
+
+        ImageLeftWidget:
+            source: "data/logo/kivy-icon-256.png"
+
+<NotiLike>
+    MDBoxLayout:
+        id: container
+        orientation: "vertical"
+        md_bg_color: [1,1,1,1]
+        
+        MDTopAppBar:
+            title: "Notification&Liked"
+            specific_text_color: 1, 1, 1, 1
+            left_action_items: [['arrow-left', lambda x: root.manager.goto_previous_screen()]]
+            
+        MDTabs:
+            indicator_color: 1, 1, 1, 1
+            tab_hint_x: True
+            text_color_normal: 1., 1., 1., .5
+            text_color_active: 1, 1, 1, 1
+            tab_indicator_anim: True
+            tab_indicator_height: dp(2)
+            on_tab_switch: root.on_tab_switch(*args)
+
+            ChatsTab:
+                icon: 'heart'
+            StatusTab:
+                icon:'bell'
+            

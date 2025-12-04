@@ -1,0 +1,73 @@
+<Search>
+    MDRelativeLayout:
+        id:search_screen
+        orientation:'vertical'
+        md_bg_color:[1,1,1,1]
+        width: root.width
+        height:root.height 
+        x:0
+        y:0
+        opacity: 1.0
+        MDBoxLayout:
+            
+            id:textfield_bar
+            height:dp(30)
+            width:root.width
+            size_hint_y: None
+            size_hint_x:None
+            md_bg_color:[0,1,0,0]
+            orientation: 'horizontal'
+            x:0
+            y:root.height-dp(30)
+            MDIconButton:
+                
+                icon:'arrow-left'
+                size_hint_y: None
+                size_hint_x:None
+                icon_size:'24dp'
+                rgba:[0,0,0,0]    
+                theme_icon_color: "Custom"
+                icon_color: get_color_from_hex('#c5d0d3')[:3]+[1]
+                pos_hint: {'center_x': 1,'center_y': .3} 
+                on_release: root.to_home_screen()     
+        
+            MDTextField:
+                id:txtfield
+                hint_text: 'Search...'
+                mode:'fill'
+                text_color_focus:[0,0,0,.7]
+                text_color_normal:get_color_from_hex('#c5d0d3')[:3]+[1]
+                hint_text_color_focus:[1,1,1,1]
+                hint_text_color_normal:get_color_from_hex('#c5d0d3')[:3]+[1] if self.text == '' or self.focus==True else [1,1,1,1]
+                font_name: 'assets/fonts/Lexend-Regular.ttf'
+                fill_color_focus:[1,1,1,1]
+                fill_color_normal:[1,1,1,1]
+                pos_hint: {'center_x': 0.5,'center_y': .6} if (self.focus==True or self.text != '') else ({'center_x': 0.5,'center_y': .46})
+                size_hint_y:None
+                focus:True
+                font_size: '17sp'
+                line_color_focus:[1,1,1,1]
+                line_color_normal:[1,1,1,1]
+            MDIconButton:
+                
+                icon:'close'
+                size_hint_y: None
+                size_hint_x:None
+                icon_size:'24dp'
+                rgba:[0,0,0,0]    
+                theme_icon_color: "Custom"
+                icon_color: get_color_from_hex('#c5d0d3')[:3]+[1]
+                pos_hint: {'center_x': 0,'center_y': .3} 
+                on_release: txtfield.text = ''    
+                disabled: 'True' if txtfield.text == '' else False
+                opacity: 0.0 if txtfield.text == '' else 1.0
+                
+        MDBoxLayout:
+            id:body_bar
+            md_bg_color:get_color_from_hex('#c5d0d3')[:3]+[.2]
+            radius:[24,24,0,0]
+            height:root.height - dp(40)
+            width:root.width
+            size_hint_y: None
+            size_hint_x: None
+            orientation: 'horizontal'

@@ -1,0 +1,515 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#: import colors kivymd.color_definitions.colors
+
+<NavIcon@MDIconButton>:
+    theme_text_color: 'Custom'
+    user_font_size: 20
+    size: 45, 45
+    rgba: 1, 1, 1, 0
+    
+
+<DLabel@MDLabel>
+    adaptive_size:True, True
+    size_hint:None,None
+    
+<ClickableTextFieldRound1>:
+    size_hint_y: None
+    height: text_field.height
+
+    MDTextField:
+        id: text_field
+        mode:'fill'
+        line_anim:True
+        on_text_validate:root.printf()
+        on_double_tap:True
+        radius:[8,8,0,0]
+        
+        text: root.text   
+        text_color_focus:1,1,1,.8 
+        text_color_normal:1,1,1,.8    
+        font_name: 'assets/fonts/Lexend-Regular.ttf'
+
+        hint_text: root.hint_text
+        hint_text_color_focus:1,1,1,.4
+        hint_text_color_normal:[1,1,1,.5]
+        
+        line_color_focus:1,1,1,.6
+        line_color_normal:get_color_from_hex("#3c5148") 
+
+        fill_color_focus:get_color_from_hex("#3c5148")
+        fill_color_normal:get_color_from_hex("#3c5148")
+        
+    MDIconButton:
+        id:mag
+        icon: 'close'
+        opacity: 0.0 if text_field.text == '' else 1
+        pos_hint: {"center_y": .4}
+        pos: text_field.width -self.width + dp(8), 0
+        theme_text_color: "Custom"
+        text_color:[1,1,1,.6]
+        on_release: None if self.icon == 'magnify' else root.delete_all()
+
+<HomeScreen>:
+    id:home
+    
+    MDBoxLayout:
+        id:center_boxp
+        md_bg_color:get_color_from_hex("#3c5148")
+        orientation: "vertical"
+        size_hint_y: None
+        size_hint_x: None
+        height: root.height
+        width: root.width
+        spacing: "24dp"
+        padding: 0, "24dp", 0, "24dp"
+        pos_hint: {'center_x': 0.5,'center_y': 0.5}
+    
+    MDRelativeLayout:
+        id: search_screen
+        size_hint_x: None
+        width: root.width - left_bar.width
+        x:-root.width
+        orientation:'vertical'
+        MDBoxLayout:
+            md_bg_color:[1,1,1,1]
+            height:root.height - top_box.height
+            radius:[16,16,0,0]
+            y:-top_box.height
+            RecycleView:
+               
+                viewclass: "ChatListItem"
+                
+                RecycleBoxLayout:
+                    padding: dp(0)
+                    spacing: dp(0)
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_size[1]
+                    default_size_hint: 1, None
+                    default_size: None, None   
+
+    MDRelativeLayout:
+        id: top_bar
+        size_hint_x: None
+        width: root.width - left_bar.width
+        height:top_box.height
+        x:left_bar.width
+        orientation:'vertical'
+
+        MDBoxLayout:
+            id:top_box
+            md_bg_color: get_color_from_hex("#3c5148")
+            size_hint: None, None
+            height: root.height/9.3
+            width: chat_screen.width
+            spacing: "24dp"
+            padding: 0, "24dp", 0, "24dp"
+            y:root.height - self.height
+        
+        DLabel:
+            id: title_top_bar
+            text: root.title
+            adaptive_size:True,True
+            width:top_bar.width - s_box.width - d_box.width
+            color:1,1,1,1
+            
+            text_color:1,1,1,.8
+            font_name: 'assets/fonts/Lexend-Regular.ttf'
+            pos_hint: {'center_y': 0.95}
+            font_size: "28sp"
+            x:left_bar.width/2
+
+        MDBoxLayout:
+            id:s_box
+            pos_hint: {'center_y': 0.95}
+            x:chat_screen.width - search.width
+            adaptive_size:True, True
+            size_hint_y:None
+            spacing: "30dp"
+
+            MDIconButton:
+                id: dots
+                icon: 'dots-vertical'
+                pos_hint: {"center_x": 1}
+                rgba: 1, 1, 1, .0
+                line_color: 0,0,0, .5
+                theme_text_color: "Custom"
+                text_color: 1,1,1,.8
+                font_size: "15sp"
+                disabled: False
+                disabled_color:[0,0,0,0]
+                bold: True
+                adaptive_size: True
+                on_release: root.menu.open()
+
+        MDBoxLayout:
+            id:d_box
+            pos_hint: {'center_y': .95}
+            x:chat_screen.width - search.width - dots.width
+            adaptive_size:True, True
+            size_hint_y:None
+            spacing: "30dp"
+            MDIconButton:
+                id: search
+                icon: 'magnify'
+                pos_hint: {"center_x": 0}
+                rgba: 1, 1, 1, .0
+                line_color: 0,0,0, .5
+                theme_text_color: "Custom"
+                text_color: 1,1,1,.8
+                font_size: "15sp"
+                bold: True
+                disabled: False
+                disabled_color:[0,0,0,0]
+                adaptive_size: True
+                on_release:root.to_search()
+
+        MDBoxLayout:
+            id:topp_box
+            md_bg_color: get_color_from_hex("#3c5148")[:3] + [.0]
+            size_hint: None, None
+            height: root.height/9.3
+            width: chat_screen.width
+            spacing: "24dp"
+            padding: 0, "24dp", 0, "24dp"
+            y:root.height - self.height
+        
+        MDBoxLayout:
+            id:r_box
+            pos_hint: {'center_y': 1.5}
+            x:title_top_bar.x/4
+            adaptive_size:True, True
+            size_hint_y:None
+            spacing: "30dp"
+
+            MDIconButton:
+                id: r_search
+                icon: 'arrow-down'
+                pos_hint: {"center_x": .5}
+                theme_text_color: "Custom"
+                text_color: 1,1,1,.8
+                font_size: "15sp"
+                bold: True
+                adaptive_size: True
+                on_release:root.back_to_search()
+
+        ClickableTextFieldRound1:
+            id:search_input
+            hint_text: 'Search...'
+            size_hint:None, None
+            adaptive_size:True, True
+            size_hint_y:None
+            height:'5dp'
+            width:top_box.width/1.2
+            x:2*title_top_bar.x
+            y: top_box.y + top_box.height
+        MDBoxLayout:
+            id:topp_boxx
+            md_bg_color: get_color_from_hex("#3c5148")[:3] + [.0]
+            size_hint: None, None
+            height: root.height/9.3
+            width: chat_screen.width
+            spacing: "24dp"
+            padding: 0, "24dp", 0, "24dp"
+            y:root.height - self.height
+
+    MDRelativeLayout:
+        id: status_screen
+        size_hint_x: None
+        width: root.width - left_bar.width
+        x:2*root.width
+        orientation:'vertical'
+        
+        MDBoxLayout:
+            md_bg_color:[1,1,1,1]
+            height:root.height - top_box.height
+            radius:[16,16,0,0]
+            y:-top_box.height
+            RecycleView:
+                data: root.group_data
+                viewclass: "ChatListItem"
+                RecycleBoxLayout:
+                    padding: dp(0)
+                    spacing: dp(0)
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_size[1]
+                    default_size_hint: 1, None
+                    default_size: None, None  
+        
+
+    MDRelativeLayout:
+        id: grp_screen
+        size_hint_x: None
+        width: root.width - left_bar.width
+        x:root.width
+        orientation:'vertical'
+        
+
+        MDBoxLayout:
+            md_bg_color:[1,1,1,1]
+            height:root.height - top_box.height
+            radius:[16,16,0,0]
+            y:-top_box.height
+            RecycleView:
+                data: root.group_data
+                viewclass: "ChatListItem"
+                RecycleBoxLayout:
+                    padding: dp(0)
+                    spacing: dp(0)
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_size[1]
+                    default_size_hint: 1, None
+                    default_size: None, None   
+                    
+    MDRelativeLayout:
+        id: chat_screen
+        size_hint_x: None
+        width: root.width - left_bar.width
+        x:left_bar.width
+        orientation:'vertical'
+        MDBoxLayout:
+            md_bg_color:[1,1,1,1]
+            height:root.height - top_box.height
+            radius:[16,16,0,0]
+            y:-top_box.height
+            RecycleView:
+                data: root.users_data
+                viewclass: "ChatListItem"
+                
+                RecycleBoxLayout:
+                    
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_size[1]
+                    default_size_hint: 1, None
+                    default_size: None, None   
+                    
+    MDBoxLayout:
+        id:center_box
+        radius:[16,16,0,0]
+        md_bg_color:get_color_from_hex("#bfcab4")[:3]+[.2]
+        orientation: "vertical"
+        size_hint_y: None
+        size_hint_x: None
+        x:left_bar.width
+        height: chat_screen.height-top_box.height
+        width: status_screen.width          
+    MDRelativeLayout:
+        id: left_bar
+        md_bg_color: get_color_from_hex("#6f9580")[:3]+[.8]
+        size_hint_x: None
+        width: root.width/8
+        x:0
+        radius:[0,16,0,0]
+        AnchorLayout:
+            id:profil
+            anchor_x: 'center'
+            pos_hint: {'center_y': 0.1}
+            Button:
+                id: mypic
+                size_hint: None, None
+                size: left_bar.height/20,  left_bar.height/20
+                radius: [self.width,]
+                pos_hint: {'center_y': .5}
+                text: ""
+                on_press: gif.anim_delay = 0.03
+                on_press: gif._coreimage.anim_reset(True)
+                background_color:[0,0,0,0]
+                Image:
+                    id: gif
+                    background_color:[0,0,0,0]
+                    source: 'assets/images/icons8-male-user-96.png'
+                    center: self.parent.center
+                    size_hint: None, None
+                    size: left_bar.height/20,  left_bar.height/20
+                    radius: [self.width,]
+                    allow_stretch: True
+                    anim_delay: -1
+                    anim_loop: 1
+           
+                
+                
+                
+
+        AnchorLayout:
+            anchor_x: 'center'
+            pos_hint: {'center_y': 0.15}
+            MDIconButton:
+                icon:'archive-outline'
+                size: left_bar.height/20,  left_bar.height/20
+                pos_hint: {"center_x": .5}
+                rgba: 1, 1, 1, .5
+                line_color: get_color_from_hex("#3c5148")
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#3c5148")
+                font_size: "10sp"
+                bold: True
+                adaptive_size: True
+
+        AnchorLayout:
+            anchor_x: 'center'
+            pos_hint: {'center_y': 0.20}
+            MDIconButton:
+                icon:'cog-outline'
+                size: left_bar.height/20,  left_bar.height/20
+                pos_hint: {"center_x": .5}
+                rgba: 1, 1, 1, .5
+                line_color: get_color_from_hex("#3c5148")
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#3c5148")
+                font_size: "10sp"
+                bold: True
+                adaptive_size: True
+                on_press: root.to_settings()
+                
+        AnchorLayout:
+            id:anch
+            anchor_x: "center"
+            pos_hint: {'center_y': 0.80}
+            
+            MDBoxLayout:
+                size_hint_y: None
+                md_bg_color: 0, 0, 0, 0
+                MDBoxLayout:
+                    id:boxlay
+                    one: [1, 1, 1, .7]
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    padding: [0, 0, 0, 10]
+                    two: get_color_from_hex("#3c5148")
+                    three: get_color_from_hex("#3c5148")
+    
+                    MDCard:
+                        id: navBar
+                        radius: [18, ]
+                        md_bg_color: get_color_from_hex("#3c5148")[:3] + [.3]
+                        padding: [10, 0, 10, 0]
+                        size_hint_y: None
+                        size_hint_x: None
+                        width:left_bar.width/1.05
+                        height: icon1.height+icon2.height+icon3.height
+                        pos_hint: {'center_x': .5}
+                        orientation:'vertical'
+                        NavIcon:
+                            id:icon1
+                            text_color: boxlay.one
+                            on_press: root.show_chat_screen()
+                            icon: 'message-minus-outline'
+                            pos_hint: {'center_y': 1}
+                            pos_hint: {'center_x': .5}
+                            
+                        NavIcon:
+                            id:icon2
+                            text_color: boxlay.two
+                            on_press: root.show_grp_screen()
+                            icon: 'account-group-outline'
+                            pos_hint: {'center_y': .5}
+                            pos_hint: {'center_x': .5}
+                            
+                        NavIcon:
+                            id:icon3
+                            text_color: boxlay.three
+                            on_press: root.show_status_screen()
+                            icon: 'circle-double'
+                            pos_hint: {'center_y': 0}
+                            pos_hint: {'center_x': .5}
+        AnchorLayout:
+            id:anch1
+            anchor_x: "center"
+            pos_hint: {'center_y': 0.43}
+            
+            MDBoxLayout:
+                size_hint_y: None
+                md_bg_color: 0, 0, 0, 0
+                MDBoxLayout:
+                    id:boxlay1
+                    one: get_color_from_hex("#e64ab0")[:3] + [.6]
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    padding: [0, 0, 0, 10]
+                    two: get_color_from_hex("#076d62")[:3] + [.6]
+                    MDCard:
+                        id: navBar1
+                        radius: [18, ]
+                        md_bg_color: get_color_from_hex("#e4e4dc")[:3] + [.2]
+                        padding: [10, 0, 10, 0]
+                        size_hint_y: None
+                        size_hint_x: None
+                        width:left_bar.width/1.05
+                        height: icon11.height+icon21.height
+                        pos_hint: {'center_x': .5}
+                        orientation:'vertical'
+                        NavIcon:
+                            id:icon11
+                            text_color: boxlay1.one
+                            on_touch_down: if self.collide_point(*args[1].pos):root.to_nlike('like') 
+                            icon: 'heart-outline'
+                            pos_hint: {'center_y': 1}
+                            pos_hint: {'center_x': .5}
+                            
+                        NavIcon:
+                            id:icon21
+                            text_color: boxlay1.two
+                            on_touch_down: if self.collide_point(*args[1].pos):root.to_nlike('noti') 
+                            icon: 'bell-outline'
+                            pos_hint: {'center_y': .5}
+                            pos_hint: {'center_x': .5}
+              
+
+        AnchorLayout:
+            id:anch2
+            anchor_x: "center"
+            pos_hint: {'center_y': 0.6125}
+            
+            MDBoxLayout:
+                size_hint_y: None
+                md_bg_color: 0, 0, 0, 0
+                MDBoxLayout:
+                    id:boxlay2
+                    one: [1, 1, 1, .7]
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    padding: [0, 0, 0, 10]
+                    two: get_color_from_hex("#3c5148")
+                    three: get_color_from_hex("#3c5148")
+    
+                    MDCard:
+                        id: navBar2
+                        radius: [18, ]
+                        md_bg_color: get_color_from_hex("#e4e4dc")[:3] + [.4]
+                        padding: [10, 0, 10, 0]
+                        size_hint_y: None
+                        size_hint_x: None
+                        width:left_bar.width/1.05
+                        height: icon12.height+icon22.height
+                        pos_hint: {'center_x': .5}
+                        orientation:'vertical'
+                        NavIcon:
+                            id:icon12
+                            text_color: boxlay2.one
+                           
+                            icon: 'account-search-outline'
+                            pos_hint: {'center_y': 1}
+                            pos_hint: {'center_x': .5}
+                            
+                        NavIcon:
+                            id:icon22
+                            text_color: boxlay2.two
+                           
+                            icon: 'account-multiple-plus-outline'
+                            pos_hint: {'center_y': .5}
+                            pos_hint: {'center_x': .5}
+    MDBoxLayout:
+        id:hid_box
+        md_bg_color:[1,1,1,1]
+        orientation: "vertical"
+        size_hint_y: None
+        size_hint_x: None
+        height: root.height
+        width: root.width
+        spacing: "24dp"
+        padding: 0, "24dp", 0, "24dp"
+        pos_hint: {'center_x': 0.5,'center_y': 0.5}
+    

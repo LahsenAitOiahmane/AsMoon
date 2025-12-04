@@ -1,0 +1,313 @@
+# :import STANDARD_INCREMENT kivymd.material_resources.STANDARD_INCREMENT
+#:import HorizontalBlurEffect kivy.uix.effectwidget.HorizontalBlurEffect
+#:import VerticalBlurEffect kivy.uix.effectwidget.VerticalBlurEffect
+#:import effect kivy.uix.effectwidget.EffectWidget
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+
+<Intro>
+    FitImage:
+        id: bg
+        size_hint_y: None
+        source: "assets/images/peakpx.jpg"
+        height: root.height 
+        width:root.width
+    
+    MDRelativeLayout:
+        id:signup
+        y:0
+        x:root.width
+        size:root.size
+        
+
+        EffectWidget:
+            opacity: root.OPACITY
+            effects:
+                ( \
+                HorizontalBlurEffect(size=12), \
+                VerticalBlurEffect(size=12), \
+                )
+
+            canvas.before:
+                StencilPush
+                RoundedRectangle:
+                    radius: [10, 10, 0, 0]
+                    size: root.FIELD_WIDTH, root.FIELD_HEIGHT/1.2
+                    pos:
+                        root.center[0] - root.FIELD_WIDTH / 2, \
+                        root.center[1] + root.SHIFT_Y / 4 + root.FIELD_HEIGHT/1.2
+                RoundedRectangle:
+                    size: root.FIELD_WIDTH, root.FIELD_HEIGHT/1.2
+                    radius: [10, 10, 0, 0]
+                    pos:
+                        root.center[0] - root.FIELD_WIDTH / 2, \
+                        root.center[1] - root.SHIFT_Y / 4 + root.FIELD_HEIGHT/1.2
+                RoundedRectangle:
+                    radius: [10, 10, 0, 0]
+                    size: root.FIELD_WIDTH, root.FIELD_HEIGHT/1.2
+                    pos:
+                        root.center[0] - root.FIELD_WIDTH / 2, \
+                        root.center[1] - 3*root.SHIFT_Y / 4 + root.FIELD_HEIGHT/1.2
+                RoundedRectangle:
+                    size: root.FIELD_WIDTH, root.FIELD_HEIGHT/1.2
+                    radius: [10, 10, 0, 0]
+                    pos:
+                        root.center[0] - root.FIELD_WIDTH / 2, \
+                        root.center[1] - 5*root.SHIFT_Y / 4 + root.FIELD_HEIGHT/1.2
+                StencilUse
+
+            canvas.after:
+                StencilUnUse
+                RoundedRectangle:
+                    size: root.FIELD_WIDTH, root.FIELD_HEIGHT/1.2
+                    radius: [10, 10, 0, 0]
+                    pos:
+                        root.center[0] - root.FIELD_WIDTH / 2, \
+                        root.center[1] + root.SHIFT_Y / 4 + root.FIELD_HEIGHT/1.2
+                RoundedRectangle:
+                    size: root.FIELD_WIDTH, root.FIELD_HEIGHT/1.2
+                    radius: [10, 10, 0, 0]
+                    pos:
+                        root.center[0] - root.FIELD_WIDTH / 2, \
+                        root.center[1] - root.SHIFT_Y / 4 + root.FIELD_HEIGHT/1.2
+                RoundedRectangle:
+                    radius: [10, 10, 0, 0]
+                    size: root.FIELD_WIDTH, root.FIELD_HEIGHT/1.2
+                    pos:
+                        root.center[0] - root.FIELD_WIDTH / 2, \
+                        root.center[1] - 3*root.SHIFT_Y / 4 + root.FIELD_HEIGHT/1.2
+                RoundedRectangle:
+                    size: root.FIELD_WIDTH, root.FIELD_HEIGHT/1.2
+                    radius: [10, 10, 0, 0]
+                    pos:
+                        root.center[0] - root.FIELD_WIDTH / 2, \
+                        root.center[1] - 5*root.SHIFT_Y / 4 + root.FIELD_HEIGHT/1.2
+                StencilPop
+
+            FitImage:
+                id: bg_blur1
+                size_hint_y: None
+                source: "assets/images/peakpx.jpg"
+                height: root.height + root.SHIFT_Y
+        FillField:
+            id: field_Name
+            opacity: root.OPACITY
+            hint_text: "  Legal Name"
+       
+            cursor_color:  [0,0,0,.7]
+            pos:
+                root.center[0] - root.FIELD_WIDTH / 2, \
+                root.center[1] + root.SHIFT_Y / 7 + root.FIELD_HEIGHT/1.2
+
+        FillField:
+            id: field_Nname
+            opacity: root.OPACITY
+            hint_text: "  Nick Name"
+      
+            cursor_color:  [0,0,0,.7]
+            pos:
+                root.center[0] - root.FIELD_WIDTH / 2 , \
+                root.center[1] - root.SHIFT_Y / 2.8 + root.FIELD_HEIGHT/1.2
+        FillField:
+            id: field_email
+            opacity: root.OPACITY
+            hint_text: "  Email"
+           
+            cursor_color:  [0,0,0,.7]
+            pos:
+                root.center[0] - root.FIELD_WIDTH / 2, \
+                root.center[1] - root.SHIFT_Y / 2.8 - (field_Name.y - field_Nname.y) + root.FIELD_HEIGHT/1.2
+
+        FillField:
+            id: field_firstpassword
+            opacity: root.OPACITY
+            hint_text: "  Password"
+           
+            cursor_color:  [0,0,0,.7]
+            pos:
+                root.center[0] - root.FIELD_WIDTH / 2 , \
+                root.center[1] - root.SHIFT_Y / 2.8 - 2*(field_Name.y - field_Nname.y) + root.FIELD_HEIGHT/1.2
+        MDBoxLayout:
+            x:0
+            y: field_password.y - root.PADDING * 4 -  1.3*root.FIELD_HEIGHT
+            width:root.width
+            
+            MDExtendedFabButton:
+                id: back_to_signin
+                text: "Back"
+                opacity: root.OPACITY
+                size_hint_x: None
+                -width: field_password.width/2.2
+                pos_hint: {"center_x": 1}
+                font_size: "22sp"
+                elevation:9
+                font_name: "assets/fonts/PlayfairDisplay-Black.ttf"
+                md_bg_color:get_color_from_hex('#09203f')[:3]+[.8]
+                text_color: [.5, .5, .5, 1]
+                ripple_color: get_color_from_hex('#09203f')
+                on_release:root.blinkscreen() if bg.height==root.height+dp(140) else lambda x:x
+            MDBoxLayout:
+                width:  root.width - 2*sign_in_button.width 
+            MDExtendedFabButton:
+                id: sign_in_button
+                text: "Sign Up"
+                opacity: root.OPACITY
+                size_hint_x: None
+                -width: field_password.width/2.2
+                pos_hint: {"center_x": 0}
+                font_size: "22sp"
+                elevation:9
+                font_name: "assets/fonts/PlayfairDisplay-Black.ttf"
+                md_bg_color:get_color_from_hex('#09203f')[:3]+[.8]
+                text_color: [.5, .5, .5, 1]
+                ripple_color: get_color_from_hex('#09203f')
+            
+            
+            
+
+
+        CommonLabel:
+            opacity: root.OPACITY
+            font_style: "Caption"
+            font_name: "assets/fonts/PlayfairDisplay-Regular.ttf"
+            halign: "center"
+            y: dp(160) - root.SHIFT_Y
+            text:
+                "You can sign up with " \
+                "[font=assets/fonts/PlayfairDisplay-Black.ttf]Google[/font]"
+
+    MDRelativeLayout:
+        id:signin
+        x:0
+        y:0
+        size:root.size
+        
+        EffectWidget:
+            opacity: root.OPACITY
+            effects:
+                ( \
+                HorizontalBlurEffect(size=12), \
+                VerticalBlurEffect(size=12), \
+                )
+
+            canvas.before:
+                StencilPush
+                RoundedRectangle:
+                    radius: [10, 10, 0, 0]
+                    size: root.FIELD_WIDTH, root.FIELD_HEIGHT/1.2
+                    pos:
+                        root.center[0] - root.FIELD_WIDTH / 2, \
+                        root.center[1] + root.SHIFT_Y / 4
+                RoundedRectangle:
+                    size: root.FIELD_WIDTH, root.FIELD_HEIGHT/1.2
+                    radius: [10, 10, 0, 0]
+                    pos:
+                        root.center[0] - root.FIELD_WIDTH / 2, \
+                        root.center[1] - root.SHIFT_Y / 4
+                StencilUse
+
+            canvas.after:
+                StencilUnUse
+                RoundedRectangle:
+                    size: root.FIELD_WIDTH, root.FIELD_HEIGHT/1.2
+                    radius: [10, 10, 0, 0]
+                    pos:
+                        root.center[0] - root.FIELD_WIDTH / 2, \
+                        root.center[1] + root.SHIFT_Y / 4
+                RoundedRectangle:
+                    size: root.FIELD_WIDTH, root.FIELD_HEIGHT/1.2
+                    radius: [10, 10, 0, 0]
+                    pos:
+                        root.center[0] - root.FIELD_WIDTH / 2, \
+                        root.center[1] - root.SHIFT_Y / 4
+                StencilPop
+
+            FitImage:
+                id: bg_blur
+                size_hint_y: None
+                source: "assets/images/peakpx.jpg"
+                height: root.height + root.SHIFT_Y
+        FillField:
+            id: field_login
+            opacity: root.OPACITY
+            hint_text: "Email"
+            icon_left: "account"
+            cursor_color:  [0,0,0,.7]
+            pos:
+                root.center[0] - root.FIELD_WIDTH / 2, \
+                root.center[1] + root.SHIFT_Y / 7
+
+        FillField:
+            id: field_password
+            opacity: root.OPACITY
+            hint_text: "Password"
+            icon_left: "lock"
+            cursor_color:  [0,0,0,.7]
+            pos:
+                root.center[0] - root.FIELD_WIDTH / 2 , \
+                root.center[1] - root.SHIFT_Y / 2.8
+
+        MDExtendedFabButton:
+            id: sign_in_button
+            text: "Sign In"
+            opacity: root.OPACITY
+            size_hint_x: None
+            -width: field_password.width/2
+            pos_hint: {"center_x": .5}
+            font_size: "24sp"
+            elevation:9
+            font_name: "assets/fonts/PlayfairDisplay-Black.ttf"
+            md_bg_color:get_color_from_hex('#09203f')[:3]+[.8]
+            text_color: [.5, .5, .5, 1]
+            ripple_color: get_color_from_hex('#09203f')
+            y: field_password.y - root.PADDING * 4
+
+        CommonLabel:
+            id: lbl_forgot_password
+            opacity: root.OPACITY
+            font_style: "Caption"
+            font_name: "assets/fonts/PlayfairDisplay-Black.ttf"
+            halign: "center"
+            y: dp(180) - root.SHIFT_Y 
+            text: "Forgot Password?"
+
+        CommonLabel:
+            opacity: root.OPACITY
+            font_style: "Caption"
+            font_name: "assets/fonts/PlayfairDisplay-Regular.ttf"
+            halign: "center"
+            y: dp(160) - root.SHIFT_Y
+            text:
+                "Don't have an Account? " \
+                "[font=assets/fonts/PlayfairDisplay-Black.ttf]Sign Up[/font]"
+            on_touch_down: if self.collide_point(*args[1].pos):root.blinkscreen() if bg.height==root.height+dp(140) else lambda x:x
+    
+    CommonLabel:
+        id:greating0
+        x: field_login.x -dp(100) - root.width
+        y: root.height + dp(570)
+        opacity: root.OPACITY
+
+        text: "[b]Now You are[b]"
+    CommonLabel:
+        id:greating1
+        x:field_login.x + dp(10) - root.width+ field_login.width/6
+        y: greating0.y - 1.5*self.height
+        opacity: root.OPACITY
+
+        text: "Up Above Your"
+    CommonLabel:
+        id:greating2
+        x: field_login.x + dp(10) - root.width + field_login.width/3
+        y: greating0.y - 3*self.height
+        opacity: root.OPACITY
+
+        text: "[b]IMAGINATION[b]"
+
+    CommonLabel:
+        id:greating
+        x: field_login.x + dp(10)
+        opacity: root.OPACITY
+        font_name: "assets/fonts/PlayfairDisplay-Regular.ttf"
+        text: "Get Started Here"
+        y: (root.center[1] + dp(140) / 7 ) - (root.PADDING )

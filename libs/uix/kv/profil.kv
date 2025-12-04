@@ -1,0 +1,82 @@
+#: import get_hex_from_color kivy.utils.get_hex_from_color 
+#: import get_color_from_hex kivy.utils.get_color_from_hex
+<Profil>
+    MDRelativeLayout:
+        MDBoxLayout:
+            md_bg_color: [0,0,0,.5]
+            size_hint: None, None
+            height: root.height
+            width: root.width
+            orientation: 'vertical'
+
+            MDBoxLayout:
+                md_bg_color:[0,0,0,0]
+                size_hint: None, None
+                height: dp(60)
+                width: root.width
+                elevation:9
+                spacing: "2dp"
+                orientation: 'horizontal'
+                MDBoxLayout:
+                    id:chv1
+                    pos_hint: {'center_y': .5}
+                    adaptive_size:True, True
+                    size_hint_y:None
+                    spacing: "30dp"
+                    
+                    MDIconButton:
+                        icon: 'chevron-left'
+                        pos_hint: {"center_x": 1}
+                        rgba: 1, 1, 1, .0
+                        line_color: 0,0,0, .5
+                        theme_text_color: "Custom"
+                        text_color: 1,1,1,1
+                        font_size: "50sp"
+                        size_hint: None, None
+                        size: '200dp','200dp'
+                        bold: True
+                        on_release: root.go_to_pre_scr()
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: None, None
+                    height: dp(60)
+                    width: root.width - chv1.width - do1.width
+                    elevation:9
+                    spacing: "2dp"
+                    FitImage:
+                        id: pr1
+                        source: root.image
+                        size_hint: None, None
+                        size: dp(40), dp(40)
+                        radius: [self.width/2,]
+                        pos_hint: {'center_y': .5}
+                    DLabel:
+                        text: root.name
+                        adaptive_size:True,True
+                        width:root.width - pr1.width - chv1.width - do1.width
+                        color:1,1,1,1
+                        text_color:1,1,1,1
+                        font_name: 'assets/fonts/Lexend-Medium.ttf'
+                        pos_hint: {'center_y': .5}
+                        font_size: "20sp"
+
+
+                MDBoxLayout:
+                    id: do1
+                    pos_hint: {'center_y': .5}
+                    adaptive_size:True, True
+                    size_hint_y:None
+                    spacing: "30dp"
+                    
+                    MDIconButton:
+                        icon: 'dots-vertical'
+                        pos_hint: {"center_x": 1}
+                        rgba: 1, 1, 1, .0
+                        line_color: 0,0,0, .5
+                        theme_text_color: "Custom"
+                        text_color: 1,1,1,1
+                        font_size: "15sp"
+                        bold: True
+                        adaptive_size: True
+    
+

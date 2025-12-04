@@ -1,0 +1,461 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import images_path kivymd.images_path
+#:import ScreenManager kivy.uix.screenmanager
+################################################
+
+################################################
+
+<InfoScreen>
+    
+    MDRelativeLayout: 
+        id:chat_screen
+        orientation:'vertical'
+        md_bg_color:[1,1,1,1]
+        width: root.width
+        height:root.height 
+        x:root.width
+        y:0
+        opacity: 1.0
+        ElevBox:
+            md_bg_color:[1,1,1,1]
+            # elevation:2
+            height:dp(60)
+            size_hint_y: None
+            x:0
+            y:root.height - dp(60)
+            orientation: 'horizontal'
+            MDBoxLayout:
+                id:labbox
+                width:root.width-2*mag.width
+                md_bg_color:[1,0,0,0]
+                size_hint_x:None
+                orientation: 'horizontal'
+                MDLabel:
+                    id:chatl
+                    text: '    Chats'
+                    font_name: 'assets/fonts/Lexend-Bold.ttf'
+                    font_size:'24sp'
+                    color:[0,0,0,.3]
+                    adaptive_size:True, False
+                    size_hint_y:None
+                    pos_hint: {'center_x':0.4,'center_y':0.5}
+            MDBoxLayout:
+                size:mag.size
+                md_bg_color:[1,0,1,0] 
+                orientation: 'horizontal'
+                MDIconButton:
+                    id:mag
+                    icon:'magnify'
+                    size_hint_y:None
+                    pos_hint: {'center_x':0.4,'center_y':0.5}
+                    theme_icon_color: "Custom"
+                    icon_color:[0,0,0,.5]
+                    rgba: 0,0,0,0
+                    line_color: 0,0,0, 0
+                    iconsize: "24dp"
+                    on_release:root.to_search_screen()
+                
+                       
+            MDBoxLayout:
+                size:dot.size
+                md_bg_color:[0,1,1,0]
+                orientation: 'horizontal'
+
+                MDIconButton:
+                    id:dot
+                    icon:'dots-vertical'
+                    
+                    pos_hint: {'center_x':1,'center_y':0.5}
+                    theme_icon_color: "Custom"
+                    icon_color:[0,0,0,.5]
+                    rgba: 0,0,0,0
+                    line_color: 0,0,0, 0
+                    icon_size: '24dp'
+                    
+                
+        MDBoxLayout:
+            md_bg_color:get_color_from_hex('#c5d0d3')[:3]+[.2]
+            height:root.height-dp(60)
+            size_hint_y: None
+            radius:[16,16,0,0]
+            y:0
+            RecycleView:
+                id:scrovw1
+                data: root.users_chat
+                viewclass: "ChatListItem"
+                on_scroll_move:root.move1()
+                # on_scroll_start:root.move1()
+                # on_scroll_stop:searchbx.height=dp(40)
+                smooth_scroll_end:5
+                SelectableRecycleGridLayout:
+                    radius:[16,16,0,0]
+                    orientation: "vertical"
+                    size_hint_y:None
+                    height:self.minimum_size[1]
+                    default_size_hint: 1, None
+                    default_size: None, None   
+                    
+    MDRelativeLayout:
+        id:home_screen
+        orientation:'vertical'
+        md_bg_color:[1,1,1,1]
+        width: root.width
+        height:root.height 
+        x:0
+        y:0
+        opacity: 1.0
+        ElevBox:
+            id:profile_bar
+            # elevation:0 
+            md_bg_color:[1,1,1,1]
+            height:dp(60)
+            size_hint_y: None
+            x:0
+            y:root.height - dp(60)
+            orientation: 'horizontal'
+            MDBoxLayout:
+                width:dp(70)
+                md_bg_color:[1,0,1,0] 
+                orientation: 'horizontal'
+                MDIconButton:
+                    icon:'assets/icons/menu.png'
+                    size_hint_y:None
+                    pos_hint: {'center_x':0.4,'center_y':0.5}
+                    theme_icon_color: "Custom"
+                    icon_color:[0,0,0,.5]
+                    rgba: 0,0,0,0
+                    line_color: 0,0,0, 0
+                    font_size: "15sp"
+
+            MDBoxLayout:
+                width:root.width-2*dp(70)
+                md_bg_color:[1,0,0,0]
+                size_hint:None,None
+                orientation: 'horizontal'     
+                       
+            MDBoxLayout:
+                width:dp(70)
+                md_bg_color:[0,1,1,0]
+                orientation: 'horizontal'
+
+                MDIconButton:
+                    icon:'assets/icons/profile.png'
+                    size_hint_x:1
+                    pos_hint: {'center_x':1,'center_y':0.5}
+                    theme_icon_color: "Custom"
+                    icon_color: get_color_from_hex('#416d6d')
+                    rgba: 0,0,0,0
+                    line_color: 0,0,0, 0
+                    icon_size: '30sp'
+                    font_size: dp(30)
+                
+        MDBoxLayout:
+            id:boxsc
+            md_bg_color:get_color_from_hex('#c5d0d3')[:3]+[.2]
+            radius:[24,24,0,0]
+            size_hint_y: None
+            height:root.height-dp(60)
+            width:root.width
+            x:0
+            y:0
+            orientation: 'vertical'
+            
+            
+            MDBoxLayout:
+                id:searchbx
+                md_bg_color:[1,1,1,0]
+                width:root.width - dp(60)
+                height:dp(40)
+                x: root.width - self.width/2 
+                size_hint_y:None
+                size_hint_x:None
+                radius:[15,]
+                pos_hint: {'center_x': 0.47}
+                orientation: 'horizontal'
+                padding: ('20dp', '5dp', '5dp', '5dp')
+                spacing:dp(20)
+                
+            MDBoxLayout:
+                id:space
+                md_bg_color:[0,0,0,0]
+                width:root.width 
+                height:dp(10)
+                x: root.width - self.width/2
+                size_hint_y:None
+                size_hint_x:None
+            MDBoxLayout:
+                id:mainpost
+                md_bg_color:[1,1,0,0]
+                width:root.width 
+                height:boxsc.height -dp(60)
+                x: 0
+                size_hint_y:None
+                size_hint_x:None
+                ScrollView:
+                    id:scrovw
+                    scroll_y:1
+                    on_scroll_move:root.move()
+                    # on_scroll_move:root.mv()
+                    # on_scroll_start:root.mv()
+                    # on_scroll_stop:searchbx.height=dp(40)
+                    smooth_scroll_end:10
+                    MDList:
+                        id:list1
+
+                # RecycleView:
+                #     id:scrovw
+                #     data: root.postdata
+                #     viewclass: "PostItem"
+                #     on_scroll_move:root.move()
+                #     # on_scroll_start:root.move()
+                #     # on_scroll_stop:searchbx.height=dp(40)
+                #     smooth_scroll_end:5
+                #     RecycleBoxLayout:
+                    
+                       
+                #         orientation: "vertical"
+                #         size_hint_y: None
+                #         height: self.minimum_size[1]
+                #         default_size_hint: 1, None
+                #         default_size: None, None   
+    
+    
+    
+    MDLabel:
+        id:hello
+        text: 'Hello'
+        font_name: 'assets/fonts/Lexend-Bold.ttf'
+        font_size:'15sp'
+        color:[0,0,0,.3]
+        opacity: 1.0
+        adaptive_size:True, False
+        size_hint_y:None
+        x:root.width/2 - self.texture_size[0]/1.5
+        y:root.height-dp(25)
+        shorten:True
+        shorten_from:'right'
+    MDLabel:
+        id:lname
+        shorten:True
+        shorten_from:'right'
+        text: 'Wahmane'
+        font_name: 'assets/fonts/Lexend-Light.ttf'
+        font_size:'15sp'
+        color:[0,0,0,1]
+        opacity: 1.0
+        adaptive_size:True, False
+        size_hint_y:None
+        x:root.width/2 
+        y:root.height-dp(50)
+    MDLabel:
+        id:name
+        shorten:True
+        shorten_from:'right'
+        text: 'LAHSEN, '
+        font_name: 'assets/fonts/Lexend-Medium.ttf'
+        font_size:'16sp'
+        opacity: 1.0
+        adaptive_size:True, False
+        size_hint_y:None
+        x:root.width/2 - self.texture_size[0]
+        y:root.height-dp(50)
+    
+    MDBoxLayout:
+        id:botombar
+        md_bg_color:[1,1,1,1]
+        width:root.width 
+        height:dp(40)
+        x:0
+        y:0
+        size_hint_y:None
+        size_hint_x:None
+        orientation: 'horizontal'
+        
+        MDBoxLayout:
+            md_bg_color:[1,0,1,0]
+            height:dp(45)
+            size_hint_y:None
+            MDIconButton:
+                id:homeico
+                icon:'home'
+                size_hint_x:1
+                pos_hint: {'center_x':1,'center_y':0.5}
+                theme_icon_color: "Custom"
+                icon_color:get_color_from_hex('#416d6d')[:3]+[.8]
+                rgba: 0,0,0,0
+                line_color: get_color_from_hex('#416d6d')[:3]+[.8]
+                # icon_size: botombar.height/2    
+                on_release: root.to_screen('home')   
+                
+            
+        MDBoxLayout:
+
+            md_bg_color:[1,1,1,0]
+            height:dp(45)
+            size_hint_y:None
+            MDIconButton:
+                id:chatico
+                icon:'chat-outline'
+                size_hint_x:1
+                pos_hint: {'center_x':1,'center_y':0.5}
+                theme_icon_color: "Custom"
+                icon_color:[0,0,0,.5]
+                rgba:[0,0,0,0]
+                line_color:get_color_from_hex('#416d6d')[:3]+[.8]
+                # icon_size: botombar.height/2
+                on_release: root.to_screen('chat')   
+        MDBoxLayout:
+            md_bg_color:[0,1,0,0]
+            height:dp(45)
+            size_hint_y:None
+            MDIconButton:
+                id:freindsico
+                icon:'account-multiple-outline'
+                size_hint_x:1
+                pos_hint: {'center_x':1,'center_y':0.5}
+                theme_icon_color: "Custom"
+                icon_color:[0,0,0,.5]
+                rgba: 0,0,0,0
+                line_color: get_color_from_hex('#416d6d')[:3]+[.8]
+                # on_release: root.to_screen('freinds')   
+                # icon_size: botombar.height/2
+       
+        MDBoxLayout:
+            id:ringbox
+            md_bg_color:[0,0,0,0]
+            height:dp(45)
+            size_hint_y:None
+            MDIconButton:
+                id:notiico
+                icon:'bell-outline'
+                size_hint_x:1
+                pos_hint: {'center_x':1,'center_y':0.5}
+                halign:'center'
+                valing:'center'
+                theme_icon_color: "Custom"
+                icon_color:[0,0,0,.5]
+                rgba: 0,0,0,0
+                line_color: get_color_from_hex('#416d6d')[:3]+[.8]
+                #icon_size: botombar.height/2
+                # on_release: root.to_screen('noti')   
+    MDBoxLayout:
+        id:lin
+        md_bg_color:get_color_from_hex('#416d6d')[:3]+[.8]
+        width:ringbox.width 
+        height:dp(2)
+        x:0
+        radius:[8,8,0,0]
+        y:0
+        size_hint_y:None
+        size_hint_x:None
+        orientation: 'horizontal'        
+    MDBoxLayout:
+        id:line
+        md_bg_color:[0,0,0,.5]
+        width:root.width 
+        height:dp(1)
+        x:0
+        radius:[6,6,0,0]
+        y:dp(39)
+        size_hint_y:None
+        size_hint_x:None
+        orientation: 'horizontal'
+       
+    
+    
+    MDBoxLayout:
+        id:searchbxlay
+        md_bg_color:[1,1,1,1]
+        width:root.width - dp(60)
+        height:dp(40)
+        y:searchbx.y
+        x: dp(25)
+        size_hint_y:None
+        size_hint_x:None
+        radius:[15,]
+        pos_hint: {'center_x': 0.49}
+        orientation: 'horizontal'
+        opacity: 1 
+        disabled: False
+        # padding: ('20dp', '5dp', '5dp', '5dp')
+        
+        on_touch_down: if self.collide_point(*args[1].pos):root.to_search_screen()     
+   
+        MDIconButton:
+            id:ico
+            icon:'magnify'
+            size_hint_y: None
+            size_hint_x:None
+            icon_size:'24dp'
+            rgba:[0,0,0,0]    
+            theme_icon_color: "Custom"
+            icon_color: get_color_from_hex('#c5d0d3')[:3]+[.8]
+            pos_hint: {'center_x': 1,'center_y': 0.5} 
+            on_release: root.to_search_screen()     
+        
+        MDLabel:
+
+            id:icolab  
+            text: 'Search for...'
+            font_name: 'assets/fonts/Lexend-Regular.ttf'
+            font_size:'13sp'
+            color:[0,0,0,.8]
+            adaptive_size:True, False
+            size_hint_y:None
+            pos_hint: {'center_x': 0,'center_y': 0.5}  
+            on_touch_down: if self.collide_point(*args[1].pos):root.to_search_screen()     
+        MDBoxLayout:
+            size_hint: None, None
+            md_bg_color:[1,0,1,0]
+            width:root.width - dp(60) - 1.7*ico.width -  icolab.texture_size[0]
+            height:dp(40)
+            on_touch_down: if self.collide_point(*args[1].pos):root.to_search_screen()
+        MDBoxLayout:
+            width:ico.width
+            md_bg_color:[1,0,0,0] 
+            orientation: 'horizontal'
+            on_touch_down: if self.collide_point(*args[1].pos):root.to_search_screen()
+            MDFabButton:
+                id:ico
+                rounded_button:True
+                type:'small'
+                rounded_button:True
+                icon:'assets/icons/setting.png'
+                size_hint: None, None
+                line_color:[0,0,0,0]
+                icon_size:'28dp'
+                md_bg_color:get_color_from_hex('#416d6d')
+                elevation:0
+                theme_icon_color: "Custom"   
+                icon_color: get_color_from_hex('#c5d0d3')[:3]+[.8]
+                pos_hint: {'right': 1,'center_y': 0.5}
+                on_release: root.to_search_screen()
+    MDBoxLayout:
+        id:inf
+        md_bg_color:[1,1,1,1]
+        width:icop.width
+        height:icop.height
+        y:root.height + self.height 
+        size_hint_y:None
+        size_hint_x:None
+        radius:[0,15,15,0]
+        pos_hint: {'center_x': .95}
+        orientation: 'horizontal'
+        # padding: ('20dp', '5dp', '5dp', '5dp')
+        
+        on_touch_down: if self.collide_point(*args[1].pos):root.to_search_screen()     
+   
+        MDIconButton:
+            id:icop
+            icon:'dots-vertical'
+            size_hint_y: None
+            size_hint_x:None
+            icon_size:'28dp'
+            rgba:[0,0,0,0]    
+            theme_icon_color: "Custom"
+            icon_color: get_color_from_hex('#c5d0d3')[:3]+[.8]
+            pos_hint: {'center_x': 1,'center_y': 0.5} 
+            on_release: root.to_search_screen()     
+
+                
+    

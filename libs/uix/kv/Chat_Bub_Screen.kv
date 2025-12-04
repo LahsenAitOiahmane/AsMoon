@@ -1,0 +1,273 @@
+#: import get_color_from_hex kivy.utils.get_color_from_hex
+#: import colors kivymd.color_definitions.colors
+
+<Chat_Bub_Screen>:
+    
+    
+    MDRelativeLayout:  
+        id: chat_bubble
+        size_hint:None,None
+        x:0
+        y:0
+        size: root.size
+        md_bg_color:[0,0,0,0]
+        orientation:'vertical'
+        MDBoxLayout:
+            id:box1
+            md_bg_color: get_color_from_hex('#c5d0d3')[:3]+[.2]
+            size_hint: None, None
+            height: prof_img.height
+            width: root.width
+            orientation: 'horizontal'
+            y:root.height -self.height
+            MDBoxLayout:
+                md_bg_color:[1,0,0,0]
+                width:prof.width 
+                size_hint_x:None
+            
+                
+                MDIconButton:
+                    id:prof
+                    icon:'arrow-left'
+                    size_hint_x:1
+                    pos_hint: {'center_x':1,'center_y':0.5}
+                    theme_icon_color: "Custom"
+                    icon_color: get_color_from_hex('#416d6d')
+                    rgba: 0,0,0,0
+                    line_color: 0,0,0, 0
+                    icon_size: dp(24)
+                    font_size: dp(30)
+                    on_release: root.previous_screen()
+            MDBoxLayout:
+                md_bg_color:[.5,.5,0,0]
+                width:prof_img.width 
+                size_hint_x:None
+            
+                
+                MDIconButton:
+                    id:prof_img
+                    icon:'assets/icons/profile.png'
+                    size_hint_x:1
+                    pos_hint: {'center_x':1,'center_y':0.5}
+                    theme_icon_color: "Custom"
+                    icon_color: get_color_from_hex('#416d6d')
+                    rgba: 0,0,0,0
+                    line_color: 0,0,0, 0
+                    icon_size: dp(30)
+                    font_size: dp(30)
+            Box:
+                md_bg_color:[0,0.5,0,0]
+                width:root.width - prof.width - prof_img.width - dot.width
+                height:prof_img.height
+                orientation: 'vertical' 
+                pos_hint: {'center_y': .58}
+                size_hint_x: None
+                MDLabel:
+                    id:fname
+                    text:'Lahsen Wahmane' 
+                    font_name: 'assets/fonts/Lexend-Medium.ttf'
+                    font_size:'14sp'
+                    adaptive_height:True
+                    markup:True
+                    shorten:True
+                    shorten_from:'right'
+                    mipmap:True
+                    color: [0,0,0,.8]
+                    multiline:False
+                    pos_hint: {'left': -.2,'center_y': 0.4}
+                    
+                MDLabel:
+                    id:date
+                    text: 'Online'
+                    font_name: 'assets/fonts/Lexend-Light.ttf'
+                    font_size:'12sp'
+                    markup:True
+                    shorten:True
+                    shorten_from:'right'
+                    mipmap:True
+                    color:[0,0,0,.8]
+                    adaptive_height:True
+                    mipmap:True
+                    pos_hint: {'left': 1,'center_y': 0.5}
+                    
+                
+                
+            MDBoxLayout:
+                md_bg_color:[0,1,1,0]
+                width:dot.width
+                pos_hint: {'center_y': 0.65}
+                size_hint_x:None
+                orientation: 'vertical'
+                MDIconButton:
+                    id:dot
+                    icon:'dots-vertical'
+                    
+                    pos_hint: {'right':1,'center_y':0.5}
+                    theme_icon_color: "Custom"
+                    icon_color: get_color_from_hex('#416d6d')
+                    rgba: 0,0,0,0
+                    line_color: 0,0,0, 0
+                    icon_size: dp(20)
+                    font_size: dp(30)
+        MDBoxLayout:
+            id:box2
+            md_bg_color: get_color_from_hex('#c5d0d3')[:3]+[.1]
+            size_hint: None, None
+            height: root.height - box3.height - box1.height - boxspace.height
+            width: root.width
+            y:box3.height
+            ScrollView:
+                
+                scroll_y:0
+                # on_scroll_move:root.mv()
+                # on_scroll_start:root.mv()
+                # on_scroll_stop:searchbx.height=dp(40)
+                smooth_scroll_end:10
+                MDList:
+                    id:list
+                    BoxLayout:
+                        id:msgbox
+                        size_hint: None,None
+                        height: self.minimum_size[1]
+                        width:root.width
+                        orientation: 'vertical'
+                        # spacing: '10dp'
+            # RecycleView:
+            #     id:scrovw
+            #     data:root.chatmsgdata
+            #     viewclass: "ChatBubble"
+            #     # on_scroll_move:root.move()
+            #     # on_scroll_start:root.move()
+            #     # on_scroll_stop:searchbx.height=dp(40)
+            #     smooth_scroll_end:5
+            #     RecycleBoxLayout:
+            #         orientation: "vertical"
+            #         size_hint_y: None
+            #         height: self.minimum_size[1]
+            #         default_size_hint: 1, None
+            #         default_size: None, None 
+                
+                        
+        
+            
+        MDBoxLayout:
+            id:box3
+            md_bg_color: [1,1,1,1]
+            radius:[0,]
+            size_hint: None, None
+            height: msg_input.height+dp(4)
+            width: root.width
+            orientation: 'horizontal'
+            y:0
+            MDBoxLayout:
+                id:emoji_button_box
+                pos_hint: {'y': 0.1} #if box3.height <= sent_msg_button_box.height+dp(4) else {'y':0}
+                adaptive_size:True, True
+                size_hint_y:None
+                spacing: "30dp"
+                MDIconButton:
+                    id: emoji_button
+                    icon: 'sticker-emoji'
+                    pos_hint: {"center_x": 1}
+                    rgba: 1, 1, 1, 1
+                    md_bg_color: [1,1,1,1]
+                    line_color: 1,1,1,.5
+                    theme_text_color: "Custom"
+                    text_color: 0,0,0,.5
+                    font_size: "10sp"
+                    bold: True
+                    adaptive_size: True
+            
+            TextInput:
+                id: msg_input
+                on_double_tap:True
+                text:'' #bidi.algorithm.get_display(arabic_reshaper.reshape(self.text))
+        
+
+                # font_name: 'assets/fonts/arabic/Ar.otf'
+                
+                # size:msg_input.texture_size
+                font_size:'16sp'
+                hint_text: 'Message'
+                hint_text_color: 0,0,0,.5
+                cursor_color:[0,0,0,.5]
+                cursor_width:'2dp'
+                text_color:[0,0,0,.7]
+                background_color:[1,1,1,0]
+                bold:True
+                font_color:[0,0,0,.8]
+                pos_hint: {'y': 0} #if self.height > dp(35) else {'center_y':.5}
+                size_hint:None, None
+                on_text:root.ontext(self.text)
+                height:sent_msg_button_box.height+dp(4) if ref_box.height ==0 else ref_box.height + dp(20) if ref_box.height + dp(20)<root.height/3 else root.height/3
+                width:root.width - sent_msg_button_box.width*2.2
+                # on_focus:root.anim0()
+                
+                canvas.after:
+                    Color:
+                        rgba:[1,1,1,1]
+            MDBoxLayout:
+                id:sent_msg_button_box
+                pos_hint: {'center_x': 0.5}
+                pos_hint: {'y': 0.1} #if box3.height <= sent_msg_button_box.height+dp(4) else {'y':0}
+                adaptive_size:True, True
+                size_hint_y:None
+                spacing: "30dp"
+                MDIconButton:
+                    id: sent_msg_button
+                    icon: 'attachment' #if root.inputing else 'attachment'
+                    pos_hint: {"center_x": 1}
+                    rgba: 1, 1, 1, 1
+                    md_bg_color: [1,1,1,1]
+                    line_color: 1,1,1,.5
+                    theme_text_color: "Custom"
+                    text_color: 0,0,0,.5
+                    font_size: "10sp"
+                    bold: True
+                    adaptive_size: True
+                    on_release: root.sent_msg(msg_input.text)
+    MDBoxLayout:
+        id:boxspace
+        md_bg_color:[0,0,0,.2]
+        height:dp(1)
+        width:root.width
+        size_hint_y:None
+        size_hint_x:None
+        x:0
+        y:box2.y
+    MDBoxLayout:
+        id:boxspace
+        md_bg_color:[0,0,0,.2]
+        height:dp(1)
+        width:root.width
+        size_hint_y:None
+        size_hint_x:None
+        x:0
+        y:box1.y
+    MDBoxLayout:
+        id:ref_box
+        md_bg_color:[0,0,0,0]
+        size:input_label.texture_size
+        size_hint_y:None
+        size_hint_x:None
+        pos_hint: {'center_y': 0.5}
+        x:msg_input.x
+        Label:
+            id:input_label
+            text:msg_input.text
+            size_hint_x:None
+            text_size: root.width - sent_msg_button_box.width*2.2 -dp(5) , None
+            size: self.texture_size
+            color:[0,0,0,0]   
+            font_size:'16sp' 
+            pos_hint: {'center_x': 0.5,'center_y': 0.5}
+    
+
+    MDBoxLayout:
+        id:mbox
+        md_bg_color:[0,0,0,0]
+        size:root.size
+        size_hint_y:None
+        size_hint_x:None
+        y:0
+        x:0

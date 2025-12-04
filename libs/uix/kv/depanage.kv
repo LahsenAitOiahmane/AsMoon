@@ -1,0 +1,120 @@
+        MDNavigationLayout:
+
+            MDScreenManager:
+
+                MDScreen:
+                    
+                    id:home_scr
+                    orientation:'vertical'
+                    md_bg_color:0,0,0,.2
+                    width: root.width
+                    height:root.height 
+                    size_hint_x:None
+                    
+                    MDBoxLayout:
+                        id:center_boxx
+                        md_bg_color:get_color_from_hex("#bfcab4")
+                        orientation: "vertical"
+                        size_hint_y: None
+                        size_hint_x: None
+                        height: root.height/1.5
+                        width: root.width/1.2
+                        x:root.height -anchbce.y
+                        spacing: "24dp"
+                        padding: 0, "24dp", 0, "24dp"
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+                        radius: [16,16,16,16]
+
+                    MDTextField:
+                        id:first_name
+                        hint_text: 'Search...'
+                        
+                        font_name: 'assets/fonts/Lexend-Regular.ttf'
+                        size_hint:None, None
+                        adaptive_size:True, True
+                        size_hint_y:None
+                        pos_hint: {'center_x': 0.5}
+                        height:'30dp'
+                        width:center_boxx.width/1.2
+                        y: root.height - anchbce.y/2
+                        
+                    MDTextField:
+                        id:last_name
+                        hint_text: 'Last Name'
+                        font_name: 'assets/fonts/Lexend-Regular.ttf'
+                        size_hint:None, None
+                        adaptive_size:True, True
+                        size_hint_y:None
+                        pos_hint: {'center_x': 0.5}
+                        height:'30dp'
+                        width:center_boxx.width/1.2
+                        y: root.height - anchbce.y/1.5
+                    
+                    MDTextField:
+                        hint_text: 'Phone Number'
+                        input_filter: 'int'
+                        font_name: 'assets/fonts/Lexend-Regular.ttf'
+                        size_hint:None, None
+                        adaptive_size:True, True
+                        size_hint_y:None
+                        pos_hint: {'center_x': 0.5}
+                        height:'30dp'
+                        width:center_boxx.width/1.2
+                        y: 2*last_name.y - first_name.y
+                        icon_right: 'phone'
+                        
+                    MDBoxLayout:
+                        y: 3*last_name.y - 2*first_name.y
+                        adaptive_size:True, False
+                        size_hint_y:None
+                        pos_hint: {'center_x': 0.5}
+                        spacing: "30dp"
+                        MDRoundFlatButton:
+                            id:bsin
+                            text: "NEXT"
+                            pos_hint: {"center_x": .5}
+                            rgba: get_color_from_hex("#002408")
+                            line_color: get_color_from_hex("#002408")
+                            theme_text_color: "Custom"
+                            text_color: get_color_from_hex("#002408")
+                            font_size: "15sp"
+                            bold: True
+                            adaptive_size: True
+                            
+                            
+                    AnchorLayout:
+                        id:anchbce
+                        y:root.height  - img.height*7
+                        pos_hint: {'center_x': .5, 'center_y': .9}
+                        orientation:"vertical"
+                        padding:dp(10)
+                        spacing:dp(10)
+                        adaptive_size:True,True
+                        size_hint_x:None
+                        size_hint_y:None
+                        FitImage:
+                            id: img
+                            source: 'assets/images/icon.jpg'
+                            size_hint: None, None
+                            size: dp(50), dp(50)
+                            radius: [self.width/2,]
+                            pos_hint: {'center_y': .5}
+                    PLabel:
+                        id:app_name
+                        text: 'ASMON'
+                        theme_text_color: "Custom"
+                        text_color: 1,1,1,.8
+                        font_size:'25sp'
+                        bold:True
+                        font_style: 'Overline'
+                        y:root.height-anchbce.y/5
+          
+
+            MDNavigationDrawer:
+                md_bg_color: get_color_from_hex("#045063")[:3] + [.85]
+                id: nav_drawer
+                width:root.width - dp(40)
+
+                ContentNavigationDrawer:
+                    id: content_drawer
+                    text_color: 1, 1, 1, 1
