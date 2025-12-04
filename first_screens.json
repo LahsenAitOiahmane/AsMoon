@@ -1,0 +1,30 @@
+{
+    "info": {
+        "import": "from libs.uix.baseclass.info_screen import InfoScreen",
+        "object": "InfoScreen()",
+        "kv": "libs/uix/kv/info_screen.kv"
+    },
+    "intro": {
+        "import": "from libs.uix.baseclass.intro import Intro",
+        "object": "Intro()",
+        "kv": "libs/uix/kv/intro.kv"
+    },
+    "search": {
+        "import": "from libs.uix.baseclass.search_screen import Search",
+        "object": "Search()",
+        "kv": "libs/uix/kv/search_screen.kv"
+    },
+    
+    "_chat": {
+        "import": "from libs.uix.baseclass.Chat_Bub_Screen import Chat_Bub_Screen",
+        "object": "Chat_Bub_Screen()",
+        "kv": "libs/uix/kv/Chat_Bub_Screen.kv"
+    },
+    "post": {
+        "import": "from libs.uix.baseclass.post_screen import PostScreen",
+        "object": "PostScreen()",
+        "kv": "libs/uix/kv/post_screen.kv"
+    }
+
+}
+

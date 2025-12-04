@@ -1,0 +1,15 @@
+{
+    "libs.uix.components.list": [
+        "ChatListItem"
+    ],
+    "libs.uix.components.chat_b": [
+        "ChatBubble"
+    ],
+    "libs.uix.baseclass.info_screen": [
+        "PostItem"
+    ],
+    "libs.uix.components.comment": [
+        "CommentListItem"
+    ]
+    
+}
