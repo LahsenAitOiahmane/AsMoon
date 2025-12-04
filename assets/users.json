@@ -1,0 +1,50 @@
+{
+    "Lahsen": {
+        "image": "assets/images/profil.jpg",
+        "message": "Why?",
+        "time": "9:10",
+        "read": 0
+    },
+    "Inano": {
+        "image": "assets/images/profil.jpg",
+        "message": "Hmm",
+        "time": "9:02",
+        "read": 1
+    },
+    "Father": {
+        "image": "assets/images/profil.jpg",
+        "message": "Call me later",
+        "time": "8:11",
+        "read": 0
+    },
+    "Br Abd Samad": {
+        "image": "assets/images/profil.jpg",
+        "message": "Ok",
+        "time": "8:01",
+        "read": 1
+    },
+    "Br Youssef": {
+        "image": "assets/images/profil.jpg",
+        "message": "I'm on work",
+        "time": "7:51",
+        "read": 0
+    },
+    "Br Mouad": {
+        "image": "assets/images/profil.jpg",
+        "message": "Let me know",
+        "time": "7:01",
+        "read": 1
+    },
+    "Br Anouar": {
+        "image": "assets/images/profil.jpg",
+        "message": "Let's see tomorrow",
+        "time": "6:12",
+        "read": 1
+    },
+    "Sis Fouzya": {
+        "image": "assets/images/profil.jpg",
+        "message": "Come quickly!",
+        "time": "4:42",
+        "read": 1
+    }
+}
