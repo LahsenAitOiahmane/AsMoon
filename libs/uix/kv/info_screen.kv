@@ -415,11 +415,9 @@
             md_bg_color:[1,0,0,0] 
             orientation: 'horizontal'
             on_touch_down: if self.collide_point(*args[1].pos):root.to_search_screen()
-            MDFabButton:
+            MDFloatingActionButton:
                 id:ico
-                rounded_button:True
                 type:'small'
-                rounded_button:True
                 icon:'assets/icons/setting.png'
                 size_hint: None, None
                 line_color:[0,0,0,0]

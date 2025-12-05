@@ -29,8 +29,8 @@ from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.button import MDFlatButton
 
 # Arabic Label will be fixed in the next version thank you
-import arabic_reshaper
-import bidi.algorithm
+# import arabic_reshaper
+# import bidi.algorithm
 ##########################################################
 
 class Chat_Bub_Screen(MDScreen, ThemableBehavior):

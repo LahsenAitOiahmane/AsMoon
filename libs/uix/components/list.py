@@ -165,6 +165,11 @@ class ChatListItem(
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+    
+    def on_touch_down(self, touch):
+        if super().on_touch_down(touch):
+            return True
+        return False
         
         
                 

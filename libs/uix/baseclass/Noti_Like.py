@@ -4,7 +4,7 @@ from kivy.properties import ListProperty
 from kivy.uix.floatlayout import FloatLayout
 from kivymd.uix.tab import MDTabsBase
 
-import utils
+# import utils
 
 
 class NotiLike(MDScreen):

@@ -21,8 +21,9 @@ class root(ScreenManager):
                 screen = self.screens_data[screen_name]
                 Builder.load_file(screen["kv"])
 
-                exec(screen["import"])
-                screen_object = eval(screen["object"])
+                ns = {}
+                exec(screen["import"], ns)
+                screen_object = eval(screen["object"], ns)
                 screen_object.name = screen_name
                 self.add_widget(screen_object)
         self.set_screen('info')
@@ -33,8 +34,9 @@ class root(ScreenManager):
             screen = self.screens_data[screen_name]
             Builder.load_file(screen["kv"])
 
-            exec(screen["import"])
-            screen_object = eval(screen["object"])
+            ns = {}
+            exec(screen["import"], ns)
+            screen_object = eval(screen["object"], ns)
             screen_object.name = screen_name
             self.add_widget(screen_object)
         
